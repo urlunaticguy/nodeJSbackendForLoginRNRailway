@@ -25,6 +25,9 @@ try {
   console.log(err);
 }
 
+const postRoutes = require("./routes/userRoutes");
+app.use("/post", postRoutes);
+
 app.get("/", (req, res) => {
   console.log("Home page called");
   res.send("We are on HOME PAGE of Server.");
