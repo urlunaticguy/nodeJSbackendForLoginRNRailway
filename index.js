@@ -1,0 +1,40 @@
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+mongoose.set("strictQuery", false); //for depreciation warning
+
+const port = process.env.PORT || 3000;
+
+const DB =
+  "mongodb+srv://urlunaticguy:souvikdas@cluster0.oruexny.mongodb.net/rndata?retryWrites=true&w=majority";
+try {
+  mongoose.connect(
+    DB,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
+    () => console.log("CONNECTED TO DB SUCCESS")
+  );
+} catch (err) {
+  console.log(err);
+}
+
+app.get("/", (req, res) => {
+  console.log("Home page called");
+  res.send("We are on HOME PAGE of Server.");
+});
+
+app.get("/water", (req, res) => {
+  console.log("Water page called");
+  res.send("Here is your water. Please drink it.");
+});
+
+app.listen(port, () => {
+  console.log("Server is listening on PORT ", port);
+});
