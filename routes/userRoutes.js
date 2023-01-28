@@ -3,6 +3,10 @@ const router = express.Router();
 const userModel = require("../models/user");
 const app = express();
 
+app.get("/", (request, response) => {
+  response.send("WE ARE ON POST HOME OF TYPE GET");
+});
+
 app.post("/userSignUp", async (request, response) => {
   const user = new userModel({
     name: request.body.name,
