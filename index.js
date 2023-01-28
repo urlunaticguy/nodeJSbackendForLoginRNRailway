@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const userModel = require("./models/user");
 
 const app = express();
 app.use(cors());
@@ -25,8 +26,30 @@ try {
   console.log(err);
 }
 
-const postRoutes = require("./routes/userRoutes");
-app.use("/post", postRoutes);
+// const postRoutes = require("./routes/userRoutes");
+// app.use("/post", postRoutes);
+
+app.get("/post", (request, response) => {
+  response.send("WE ARE ON POST HOME OF TYPE GET");
+});
+
+app.post("/post/userSignUp", async (request, response) => {
+  const user = new userModel({
+    name: request.body.name,
+    email: request.body.email,
+    password: request.body.password,
+    role: "",
+    country: "",
+    languages: [],
+  });
+
+  try {
+    const savedUser = await user.save();
+    response.send(savedUser);
+  } catch (err) {
+    response.status(500).send(err);
+  }
+});
 
 app.get("/", (req, res) => {
   console.log("Home page called");
