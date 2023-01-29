@@ -35,7 +35,7 @@ app.get("/post", (request, response) => {
 
 app.get("/get/mailCheck", async (request, response) => {
   try {
-    const savedResult = await userModel.find({ email: request.body.email });
+    const savedResult = await userModel.find({ email: "Yellow@gmsil.com" });
     console.log(savedResult);
     response.json(savedResult);
     // console.log(savedResult.data);
