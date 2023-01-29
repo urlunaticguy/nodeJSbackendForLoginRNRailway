@@ -35,18 +35,20 @@ app.get("/post", (request, response) => {
 
 app.get("/get/mailCheck", async (request, response) => {
   try {
-    const savedResult = await userModel.find({});
-    console.log(savedResult.data);
-    const arr = savedResult.data;
-    let boolValue = { value: true };
-    for (let i = 0; i < arr.length; i++) {
-      let mail = arr[i]["email"];
-      if (mail == request.body.email) {
-        boolValue.value = false;
-      }
-      console.log(mail);
-    }
-    response.json(boolValue);
+    const savedResult = await userModel.find({ email: request.body.email });
+    console.log(savedResult);
+    response.json(savedResult);
+    // console.log(savedResult.data);
+    // const arr = savedResult.data;
+    // let boolValue = { value: true };
+    // for (let i = 0; i < arr.length; i++) {
+    //   let mail = arr[i]["email"];
+    //   if (mail == request.body.email) {
+    //     boolValue.value = false;
+    //   }
+    //   console.log(mail);
+    // }
+    // response.json(boolValue);
   } catch (err) {
     console.log(err);
   }
