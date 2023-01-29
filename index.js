@@ -33,6 +33,15 @@ app.get("/post", (request, response) => {
   response.send("WE ARE ON POST HOME OF TYPE GET");
 });
 
+app.get("/get/mailCheck", async (request, response) => {
+  try {
+    const savedResult = await userModel.find({});
+    response.json(savedResult);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.post("/post/userSignUp", async (request, response) => {
   const user = new userModel({
     name: request.body.name,
