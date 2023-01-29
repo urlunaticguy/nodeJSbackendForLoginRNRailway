@@ -61,6 +61,11 @@ app.get("/get/mailCheck", async (request, response) => {
 app.post("/post/userSignUp", async (request, response) => {
   console.log(request.body);
 
+  const searchEmail = await userModel.find({ email: request.body.email });
+  console.log(searchEmail);
+
+  const a = 1;
+
   const user = new userModel({
     name: request.body.name,
     email: request.body.email,
@@ -70,11 +75,13 @@ app.post("/post/userSignUp", async (request, response) => {
     languages: [],
   });
 
-  try {
-    const savedUser = await user.save();
-    response.send(savedUser);
-  } catch (err) {
-    response.status(500).send(err);
+  if (a == 2) {
+    try {
+      const savedUser = await user.save();
+      response.send(savedUser);
+    } catch (err) {
+      response.status(500).send(err);
+    }
   }
 });
 
