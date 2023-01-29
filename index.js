@@ -59,6 +59,8 @@ app.get("/get/mailCheck", async (request, response) => {
 });
 
 app.post("/post/userSignUp", async (request, response) => {
+  console.log(request.body);
+
   const user = new userModel({
     name: request.body.name,
     email: request.body.email,
