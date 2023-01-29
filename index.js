@@ -35,12 +35,13 @@ app.get("/post", (request, response) => {
 
 app.get("/get/mailCheck", async (request, response) => {
   try {
-    console.log("HERE IS WHAT I SENT VIA PHONE = ", request.body.email);
-    const savedResult = await userModel.find({
-      email: JSON.stringify(request.body.email),
-    });
-    console.log(savedResult);
-    response.json(savedResult);
+    console.log(request.body);
+    // console.log("HERE IS WHAT I SENT VIA PHONE = ", request.body.email);
+    // const savedResult = await userModel.find({
+    //   email: JSON.stringify(request.body.email),
+    // });
+    // console.log(savedResult);
+    // response.json(savedResult);
     // console.log(savedResult.data);
     // const arr = savedResult.data;
     // let boolValue = { value: true };
