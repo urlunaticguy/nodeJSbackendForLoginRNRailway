@@ -36,7 +36,17 @@ app.get("/post", (request, response) => {
 app.get("/get/mailCheck", async (request, response) => {
   try {
     const savedResult = await userModel.find({});
-    response.json(savedResult);
+    console.log(savedResult.data);
+    const arr = savedResult.data;
+    let boolValue = { value: true };
+    for (let i = 0; i < arr.length; i++) {
+      let mail = arr[i]["email"];
+      if (mail == request.body.email) {
+        boolValue.value = false;
+      }
+      console.log(mail);
+    }
+    response.json(boolValue);
   } catch (err) {
     console.log(err);
   }
