@@ -64,6 +64,12 @@ app.post("/post/userSignUp", async (request, response) => {
   const searchEmail = await userModel.find({ email: request.body.email });
   console.log(searchEmail);
 
+  if (searchEmail.length == 0) {
+    console.log("EMAIL NOT FOUND");
+  } else {
+    console.log("EMAIL FOUND.");
+  }
+
   const a = 1;
 
   const user = new userModel({
