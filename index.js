@@ -27,36 +27,8 @@ try {
   console.log(err);
 }
 
-// const postRoutes = require("./routes/userRoutes");
-// app.use("/post", postRoutes);
-
 app.get("/post", (request, response) => {
   response.send("WE ARE ON POST HOME OF TYPE GET");
-});
-
-app.get("/get/mailCheck", async (request, response) => {
-  try {
-    console.log(request.body);
-    // console.log("HERE IS WHAT I SENT VIA PHONE = ", request.body.email);
-    // const savedResult = await userModel.find({
-    //   email: JSON.stringify(request.body.email),
-    // });
-    // console.log(savedResult);
-    // response.json(savedResult);
-    // console.log(savedResult.data);
-    // const arr = savedResult.data;
-    // let boolValue = { value: true };
-    // for (let i = 0; i < arr.length; i++) {
-    //   let mail = arr[i]["email"];
-    //   if (mail == request.body.email) {
-    //     boolValue.value = false;
-    //   }
-    //   console.log(mail);
-    // }
-    // response.json(boolValue);
-  } catch (err) {
-    console.log(err);
-  }
 });
 
 app.post("/post/validateCredentials", async (req, res) => {
@@ -83,11 +55,7 @@ app.post("/post/validateCredentials", async (req, res) => {
 });
 
 app.post("/post/userSignUp", async (request, response) => {
-  //   console.log(request.body);
-
   const searchEmail = await userModel.find({ email: request.body.email });
-  //   console.log(searchEmail);
-
   let flag = true;
   if (searchEmail.length == 0) {
     console.log("EMAIL NOT FOUND. Preparing for new user SignUp.");
