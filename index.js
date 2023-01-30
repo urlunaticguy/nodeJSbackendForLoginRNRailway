@@ -61,6 +61,25 @@ app.get("/get/mailCheck", async (request, response) => {
 
 app.post("/post/validateCredentials", async (req, res) => {
   console.log(req.body);
+  const searchloginEmail = await userModel.find({ email: req.body.loginMail });
+
+  let savedResponse = { boolValue: true, message: "", name: "" };
+  if (searchloginEmail.length == 0) {
+    console.log("LOGIN FAILED. User is not registered.");
+    savedResponse.boolValue = false;
+    savedResponse.message = "LOGIN FAILED. User is not registered.";
+  } else {
+    if (searchloginEmail[0]["password"] == req.body.loginPassword) {
+      savedResponse.message = "Login successful";
+      savedResponse.name = searchloginEmail[0]["name"];
+      console.log("Login successful.");
+    } else {
+      savedResponse.boolValue = false;
+      savedResponse.message = "User exists. Password incorrect.";
+      console.log("User exists. Password incorrect.");
+    }
+  }
+  res.send(savedResponse);
 });
 
 app.post("/post/userSignUp", async (request, response) => {
