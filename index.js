@@ -7,6 +7,7 @@ const userModel = require("./models/user");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.set("strictQuery", false); //for depreciation warning
 
 const port = process.env.PORT || 3000;
@@ -59,32 +60,32 @@ app.get("/get/mailCheck", async (request, response) => {
 });
 
 app.post("/post/userSignUp", async (request, response) => {
-  console.log(request.body);
+  //   console.log(request.body);
 
   const searchEmail = await userModel.find({ email: request.body.email });
-  console.log(searchEmail);
+  //   console.log(searchEmail);
 
+  let flag = true;
   if (searchEmail.length == 0) {
-    console.log("EMAIL NOT FOUND");
+    console.log("EMAIL NOT FOUND. Preparing for new user SignUp.");
   } else {
-    console.log("EMAIL FOUND.");
+    console.log("EMAIL FOUND. User already exists.");
+    flag = false;
+    response.send({ value: false });
   }
 
-  const a = 1;
-
-  const user = new userModel({
-    name: request.body.name,
-    email: request.body.email,
-    password: request.body.password,
-    role: "",
-    country: "",
-    languages: [],
-  });
-
-  if (a == 2) {
+  if (flag == true) {
+    const user = new userModel({
+      name: request.body.name,
+      email: request.body.email,
+      password: request.body.password,
+      role: "",
+      country: "",
+      languages: [],
+    });
     try {
       const savedUser = await user.save();
-      response.send(savedUser);
+      response.send({ value: true });
     } catch (err) {
       response.status(500).send(err);
     }
