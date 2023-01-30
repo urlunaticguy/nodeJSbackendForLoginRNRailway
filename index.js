@@ -59,6 +59,10 @@ app.get("/get/mailCheck", async (request, response) => {
   }
 });
 
+app.post("/post/validateCredentials", async (req, res) => {
+  console.log(req.body);
+});
+
 app.post("/post/userSignUp", async (request, response) => {
   //   console.log(request.body);
 
